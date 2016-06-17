@@ -31,7 +31,8 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Guilherme
  */
-@WebServlet(name = "ControleBusca", urlPatterns = {"/ControleBusca", "/buscarempresa.html", "/buscarprodutopornome.html", "/buscarprodutoporcategoria.html"})
+@WebServlet(name = "ControleBusca", urlPatterns = {"/ControleBusca", "/buscarempresa.html", "/buscarprodutopornome.html", 
+    "/buscarprodutoporcategoria.html", "/minhasempresas.html", "/meusprodutos.html"})
 public class ControleBusca extends HttpServlet {
 
     /**
@@ -185,8 +186,80 @@ public class ControleBusca extends HttpServlet {
                 request.setAttribute("msg", "<div class='alert alert-info'>Servidor indisponível no momento</div>");
                 request.getRequestDispatcher("pages/buscarproduto.jsp").forward(request, response);
             }
+            
+        } else if(url.equalsIgnoreCase("/minhasempresas.html")) {
+            
+            try {
+                    
+                List<Empresa> empresas = new ArrayList<>();
+                 
+                HttpSession session = request.getSession();
+                String email = String.valueOf(session.getAttribute("email"));
+                String senha = String.valueOf(session.getAttribute("senha"));
+                Integer id = new Integer(String.valueOf(session.getAttribute("id")));
+
+                String credentials = email + ":" + senha;
+                String encodedCredentials = Base64.encode(credentials.getBytes());
+
+                Client client = ClientBuilder.newClient();
+                String resp = client
+                                .target("http://localhost:8080/ServidorAplicativo/webresources/Empresa/buscarMinhasEmpresas/"+id)
+                                .request(MediaType.APPLICATION_JSON_TYPE)
+                                .header("Authorization", "Basic " + encodedCredentials)
+                                .get(String.class);
+
+                Type listType = new TypeToken<ArrayList<Empresa>>(){}.getType();
+                empresas = gson.fromJson(resp, listType);
+
+                request.setAttribute("lista", empresas);
+                request.getRequestDispatcher("pages/minhasempresas.jsp").forward(request, response);
+
+//                    PrintWriter out = response.getWriter();
+//                    out.println(resp);
+
+            } catch(Exception e) {
+                e.printStackTrace();
+
+                request.setAttribute("msg", "<div class='alert alert-info'>Servidor indisponível no momento</div>");
+                request.getRequestDispatcher("pages/minhasempresas.jsp").forward(request, response);
+            }
+            
+        } else if(url.equalsIgnoreCase("/meusprodutos.html")) {
+            
+            try {
+                                     
+                HttpSession session = request.getSession();
+                String email = String.valueOf(session.getAttribute("email"));
+                String senha = String.valueOf(session.getAttribute("senha"));
+                Integer id = new Integer(String.valueOf(session.getAttribute("id")));
+
+                String credentials = email + ":" + senha;
+                String encodedCredentials = Base64.encode(credentials.getBytes());
+
+                Client client = ClientBuilder.newClient();
+                String resp = client
+                                .target("http://localhost:8080/ServidorAplicativo/webresources/Produto/buscarMeusProdutos/"+id)
+                                .request(MediaType.APPLICATION_JSON_TYPE)
+                                .header("Authorization", "Basic " + encodedCredentials)
+                                .get(String.class);
+
+                Type listType = new TypeToken<ArrayList<Produto>>(){}.getType();
+                List<Produto> produtos = gson.fromJson(resp, listType);
+
+                request.setAttribute("lista", produtos);
+                request.getRequestDispatcher("pages/meusprodutos.jsp").forward(request, response);
+
+//                    PrintWriter out = response.getWriter();
+//                    out.println(resp);
+
+            } catch(Exception e) {
+                e.printStackTrace();
+
+                request.setAttribute("msg", "<div class='alert alert-info'>Servidor indisponível no momento</div>");
+                request.getRequestDispatcher("pages/meusprodutos.jsp").forward(request, response);
+            }
         }
-    }
+    }  
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
