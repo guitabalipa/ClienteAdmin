@@ -11,15 +11,15 @@
         <div class="row">
             <div class="col-lg-6">
                 <form action="${pageContext.request.contextPath }/buscarempresa.html" method="post">
-                    <div class="col-xs-3">
+<!--                    <div class="col-xs-3">
                         <select class="form-control" name="busca" required>
                             <option value="">--Selecione--</option>
                             <option value="nome">Nome</option>
                             <option value="endereco">Endereço</option>
                         </select>
-                    </div>
-                    <div class="col-xs-7">
-                        <input type="text" class="form-control" placeholder="Palavra para a busca" name="palavra" required>
+                    </div>-->
+                    <div class="col-xs-8">
+                        <input type="text" class="form-control" placeholder="Nome da empresa para busca" name="palavra" required>
                     </div>
                     <div class="col-xs-2">
                         <input type="submit" value="BUSCAR" class="btn btn-primary">

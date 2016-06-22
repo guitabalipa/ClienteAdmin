@@ -52,10 +52,10 @@ public class ControleBusca extends HttpServlet {
 			
         if(url.equalsIgnoreCase("/buscarempresa.html")) {
             
-            String busca = request.getParameter("busca");
+//            String busca = request.getParameter("busca");
             String palavra = request.getParameter("palavra");
             
-            if(busca.equals("nome")) {
+//            if(busca.equals("nome")) {
                 
                 List<Empresa> empresas = new ArrayList<>();
                 Filtro f = new Filtro();
@@ -92,9 +92,9 @@ public class ControleBusca extends HttpServlet {
                     request.getRequestDispatcher("pages/index.jsp").forward(request, response);
                 }
                 
-            } else {
-                
-            }
+//            } else {
+//                
+//            }
         } else if(url.equalsIgnoreCase("/buscarprodutopornome.html")) {
             
             String busca = request.getParameter("busca");
