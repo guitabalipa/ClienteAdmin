@@ -5,6 +5,8 @@
  */
 package br.com.clienteadmin.model;
 
+import java.sql.Date;
+
 /**
  *
  * @author Guilherme
@@ -18,6 +20,35 @@ public class Comentario {
     private int comentadoid;
     private int modificado;
     private String tipoComentado;
+    private Date data_criacao;
+    private Date data_modificacao;
+    private Pessoa pessoa;
+    private int cont_comentarios_dependentes;
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    public Date getData_criacao() {
+        return data_criacao;
+    }
+
+    public void setData_criacao(Date data_criacao) {
+        this.data_criacao = data_criacao;
+    }
+
+    public Date getData_modificacao() {
+        return data_modificacao;
+    }
+
+    public void setData_modificacao(Date data_modificacao) {
+        this.data_modificacao = data_modificacao;
+    }
+    
 
     public int getComentarioid() {
         return comentarioid;
@@ -75,4 +106,11 @@ public class Comentario {
         this.tipoComentado = tipoComentado;
     }
     
+    public int getCont_comentarios_dependentes() {
+        return cont_comentarios_dependentes;
+    }
+
+    public void setCont_comentarios_dependentes(int cont_comentarios_dependentes) {
+        this.cont_comentarios_dependentes = cont_comentarios_dependentes;
+    }
 }

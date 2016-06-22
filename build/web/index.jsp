@@ -51,11 +51,6 @@
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Senha" name="senha" type="password" required>
                                 </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Manter-me conectado
-                                    </label>
-                                </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <input type="submit" class="btn btn-lg btn-success btn-block" value="Login">
                             </fieldset>

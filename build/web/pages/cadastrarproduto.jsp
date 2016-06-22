@@ -1,4 +1,5 @@
 <jsp:include page="header.jsp"></jsp:include>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
     <div id="page-wrapper">
         <div class="row">
@@ -9,6 +10,17 @@
             <div class="col-lg-8">
                 ${msg}
                 <form action="${pageContext.request.contextPath }/cadastrarproduto.html" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-xs-10">
+                            <h3>Empresa:</h3>
+                            <select class="form-control" name="empresaid" required>
+                                <option value="">--Selecione--</option>
+                                <c:forEach items="${empresas}" var="e">
+                                    <option value="${e.empresaId}">${e.nomeEmpresa}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-xs-10">
                             <h3>Nome:</h3>

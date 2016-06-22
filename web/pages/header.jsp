@@ -22,6 +22,7 @@
 
     <!-- Custom CSS -->
     <link href="${pageContext.request.contextPath }/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath }/css/style.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
     <link href="${pageContext.request.contextPath }/bower_components/morrisjs/morris.css" rel="stylesheet">
@@ -65,12 +66,10 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        <li><a href="${pageContext.request.contextPath }/detalhesperfil.html"><i class="fa fa-user fa-fw"></i> Perfil do Usuário</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="${pageContext.request.contextPath }/logout.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="${pageContext.request.contextPath }/logout.html"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -105,7 +104,7 @@
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Produto<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="${pageContext.request.contextPath }/pages/cadastrarproduto.jsp">Cadastrar Produto</a>
+                                    <a href="${pageContext.request.contextPath }/cadastrodeproduto.html">Cadastrar Produto</a>
                                 </li>
                                 <li>
                                     <a href="${pageContext.request.contextPath }/pages/buscarproduto.jsp">Buscar Produto</a>

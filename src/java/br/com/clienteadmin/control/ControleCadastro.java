@@ -10,19 +10,16 @@ import br.com.clienteadmin.model.Endereco;
 import br.com.clienteadmin.model.Imagem;
 import br.com.clienteadmin.model.Produto;
 import br.com.clienteadmin.model.Telefone;
-import br.com.clienteadmin.model.Usuario;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.sun.xml.wss.impl.misc.Base64;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -35,14 +32,12 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.xml.bind.DatatypeConverter;
 
 /**
  *
  * @author Guilherme
  */
-@WebServlet(name = "ControleCadastro", urlPatterns = {"/ControleCadastro", "/cadastrarempresa.html", "/cadastrarproduto.html"})
+@WebServlet(name = "ControleCadastro", urlPatterns = {"/ControleCadastro", "/cadastrarempresa.html", "/cadastrarproduto.html", "/cadastrodeproduto.html"})
 @MultipartConfig
 public class ControleCadastro extends HttpServlet {
 
@@ -143,12 +138,13 @@ public class ControleCadastro extends HttpServlet {
                 
             } catch(Exception e) {
                 e.printStackTrace();
-                request.setAttribute("msg", "<div class='alert alert-info'>Empresa não cadastrada.</div>");
+                request.setAttribute("msg", "<div class='alert alert-info'>Servidor indisponível</div>");
                 request.getRequestDispatcher("pages/cadastrarempresa.jsp").forward(request, response);
             }
             
         } else if(url.equalsIgnoreCase("/cadastrarproduto.html")) {
             
+            String idempresa = request.getParameter("empresaid");
             String nomeproduto = request.getParameter("nomeproduto");
             String descricao = request.getParameter("descricao");
             String preco = request.getParameter("preco");
@@ -160,6 +156,7 @@ public class ControleCadastro extends HttpServlet {
             p.setDescricao(descricao);
             p.setPreco(new Double(preco.replace(",", ".")));
             p.setCategoria(new Integer(categoria));
+            p.setEmpresaid(new Integer(idempresa));
             
             try {
                 String nomeArquivo = "imgPerfil" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".jpg";
@@ -198,8 +195,39 @@ public class ControleCadastro extends HttpServlet {
                 
             } catch(Exception e) {
                 e.printStackTrace();
-                request.setAttribute("msg", "<div class='alert alert-info'>Produto não cadastrado.</div>");
+                request.setAttribute("msg", "<div class='alert alert-info'>Servidor indisponível</div>");
                 request.getRequestDispatcher("pages/cadastrarproduto.jsp").forward(request, response);
+            }
+            
+        } else if(url.equalsIgnoreCase("/cadastrodeproduto.html")) {
+            
+            try {
+                HttpSession session = request.getSession();
+                String email = String.valueOf(session.getAttribute("email"));
+                String senha = String.valueOf(session.getAttribute("senha"));
+                Integer id    = new Integer(String.valueOf(session.getAttribute("id")));
+
+                String credentials = email + ":" + senha;
+                String encodedCredentials = Base64.encode(credentials.getBytes());
+
+                Client client = ClientBuilder.newClient();
+                String resp = client
+                                .target("http://localhost:8080/ServidorAplicativo/webresources/Empresa/buscarMinhasEmpresas/"+id)
+                                .request(MediaType.APPLICATION_JSON_TYPE)
+                                .header("Authorization", "Basic " + encodedCredentials)
+                                .get(String.class);
+
+                Type listType = new TypeToken<ArrayList<Empresa>>(){}.getType();
+                List<Empresa> empresas = gson.fromJson(resp, listType);
+                                    
+                request.setAttribute("empresas", empresas);
+                request.getRequestDispatcher("pages/cadastrarproduto.jsp").forward(request, response);
+                
+            } catch(Exception e) {
+                e.printStackTrace();
+                
+                request.setAttribute("msg", "<div class='alert alert-info'>Servidor indisponível</div>");
+                request.getRequestDispatcher("pages/index.jsp").forward(request, response);
             }
         }
     }

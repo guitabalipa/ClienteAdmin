@@ -39,7 +39,7 @@
             </div>
         </div>
         <hr>
-        
+        ${msg}
         <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -53,6 +53,7 @@
                                     <thead>
                                         <tr>
                                             <th>Nome do Produto</th>
+                                            <th>Empresa</th>
                                             <th>Preço</th>
                                             <th>Avaliação Geral</th>
                                             <th></th>
@@ -62,8 +63,9 @@
                                         <c:forEach items="${lista}" var="p">
                                             <tr class="odd gradeX">
                                                 <td>${p.nomeProduto}</td>
+                                                <td>${p.empresa.nomeEmpresa}</td>
                                                 <td>${p.preco}</td>
-                                                <td></td>
+                                                <td>${p.avaliacaoGeral}</td>
                                                 <td class="center">
                                                     <c:choose>
                                                         <c:when test="${sessionScope.id != p.entidade.idresponsavel}">
@@ -72,13 +74,13 @@
                                                             </a>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <a href="${pageContext.request.contextPath }/editarproduto.html?id=${p.produtoid}" class="btn btn-info">
+                                                            <a href="${pageContext.request.contextPath }/opcaoeditarproduto.html?id=${p.produtoid}" class="btn btn-info">
                                                                 <span class="glyphicon glyphicon-edit"></span>
                                                             </a>
                                                             <a href="${pageContext.request.contextPath }/detalhesproduto.html?id=${p.produtoid}" class="btn btn-primary">
                                                                 <span class="glyphicon glyphicon-eye-open"></span>
                                                             </a>
-                                                            <a href="${pageContext.request.contextPath }/excluirproduto.html?id=${p.produtoid}" class="btn btn-danger" onclick="return confirm('Deseja excluir o Produto?')">
+                                                            <a href="${pageContext.request.contextPath }/excluirproduto.html?id=${p.produtoid}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este produto?')">
                                                                 <span class="glyphicon glyphicon-remove"></span>
                                                             </a>
                                                         </c:otherwise>

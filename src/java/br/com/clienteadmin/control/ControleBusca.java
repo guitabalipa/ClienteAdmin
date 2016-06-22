@@ -12,7 +12,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sun.xml.wss.impl.misc.Base64;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,14 +85,11 @@ public class ControleBusca extends HttpServlet {
                     request.setAttribute("busca", palavra);
                     request.getRequestDispatcher("pages/buscarempresa.jsp").forward(request, response);
                     
-//                    PrintWriter out = response.getWriter();
-//                    out.println(resp);
-                    
                 } catch(Exception e) {
                     e.printStackTrace();
                     
                     request.setAttribute("msg", "<div class='alert alert-info'>Servidor indisponível no momento</div>");
-                    request.getRequestDispatcher("pages/buscarempresa.jsp").forward(request, response);
+                    request.getRequestDispatcher("pages/index.jsp").forward(request, response);
                 }
                 
             } else {
@@ -128,14 +124,11 @@ public class ControleBusca extends HttpServlet {
                 request.setAttribute("busca", busca);
                 request.getRequestDispatcher("pages/buscarproduto.jsp").forward(request, response);
 
-//                    PrintWriter out = response.getWriter();
-//                    out.println(resp);
-
             } catch(Exception e) {
                 e.printStackTrace();
 
                 request.setAttribute("msg", "<div class='alert alert-info'>Servidor indisponível no momento</div>");
-                request.getRequestDispatcher("pages/buscarproduto.jsp").forward(request, response);
+                request.getRequestDispatcher("pages/index.jsp").forward(request, response);
             }
             
             
@@ -177,14 +170,11 @@ public class ControleBusca extends HttpServlet {
                 request.setAttribute("busca", busca);
                 request.getRequestDispatcher("pages/buscarproduto.jsp").forward(request, response);
 
-//                    PrintWriter out = response.getWriter();
-//                    out.println(resp);
-
             } catch(Exception e) {
                 e.printStackTrace();
 
                 request.setAttribute("msg", "<div class='alert alert-info'>Servidor indisponível no momento</div>");
-                request.getRequestDispatcher("pages/buscarproduto.jsp").forward(request, response);
+                request.getRequestDispatcher("pages/index.jsp").forward(request, response);
             }
             
         } else if(url.equalsIgnoreCase("/minhasempresas.html")) {
@@ -214,14 +204,11 @@ public class ControleBusca extends HttpServlet {
                 request.setAttribute("lista", empresas);
                 request.getRequestDispatcher("pages/minhasempresas.jsp").forward(request, response);
 
-//                    PrintWriter out = response.getWriter();
-//                    out.println(resp);
-
             } catch(Exception e) {
                 e.printStackTrace();
 
                 request.setAttribute("msg", "<div class='alert alert-info'>Servidor indisponível no momento</div>");
-                request.getRequestDispatcher("pages/minhasempresas.jsp").forward(request, response);
+                request.getRequestDispatcher("pages/index.jsp").forward(request, response);
             }
             
         } else if(url.equalsIgnoreCase("/meusprodutos.html")) {
@@ -248,15 +235,12 @@ public class ControleBusca extends HttpServlet {
 
                 request.setAttribute("lista", produtos);
                 request.getRequestDispatcher("pages/meusprodutos.jsp").forward(request, response);
-
-//                    PrintWriter out = response.getWriter();
-//                    out.println(resp);
-
+                
             } catch(Exception e) {
                 e.printStackTrace();
 
                 request.setAttribute("msg", "<div class='alert alert-info'>Servidor indisponível no momento</div>");
-                request.getRequestDispatcher("pages/meusprodutos.jsp").forward(request, response);
+                request.getRequestDispatcher("pages/index.jsp").forward(request, response);
             }
         }
     }  

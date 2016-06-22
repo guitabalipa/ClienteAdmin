@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Guilherme
  */
-public class Empresa {
+public class Empresa{
     
     private int empresaId;
     private String nomeEmpresa;

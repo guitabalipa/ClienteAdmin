@@ -34,13 +34,13 @@
                                             <td>${e.endereco.rua}, ${e.endereco.numero} ${e.endereco.bairro} ${e.endereco.cidade} - ${e.endereco.estado} ${e.endereco.pais}</td>
                                             <td>${e.avaliacaoNota}</td>
                                             <td class="center">
-                                                <a href="${pageContext.request.contextPath }/editarEmpresa.html?id=${e.empresaId}" class="btn btn-info">
+                                                <a href="${pageContext.request.contextPath }/opcaoeditar.html?id=${e.empresaId}" class="btn btn-info">
                                                     <span class="glyphicon glyphicon-edit"></span>
                                                 </a>
                                                 <a href="${pageContext.request.contextPath }/detalhesempresa.html?id=${e.empresaId}" class="btn btn-primary">
                                                     <span class="glyphicon glyphicon-eye-open"></span>
                                                 </a>
-                                                <a href="${pageContext.request.contextPath }/excluirEmpresa.html?id=${e.empresaId}" class="btn btn-danger" onclick="return confirm('Deseja excluir a Empresa?')">
+                                                <a href="${pageContext.request.contextPath }/excluirempresa.html?id=${e.empresaId}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir a empresa?')">
                                                     <span class="glyphicon glyphicon-remove"></span>
                                                 </a>
                                             </td>
